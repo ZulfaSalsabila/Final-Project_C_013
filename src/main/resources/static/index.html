@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>uas pws</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+    </head>
+    <body>
+        <body>
+        <div>DATA MAHASISWA PRODI TI</div>
+        <hr/>
+        
+        <script>
+            
+            function post() {
+                const url = "http://localhost:8080/POST";
+                let editID = document.getElementById("id").value;
+                let name = document.getElementById("nama").value;
+                let editNIK = document.getElementById("nik").value;
+                let address = document.getElementById("alamat").value;
+                let photo = document.getElementById("foto").value;
+                let dataText = {"id":editID,"name":name,"nik":editNIK,"alamat":address,"photo":foto}
+                let dataJson = JSON.stringify(dataText);
+                
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: dataJson,
+                    contentType: 'application/json',
+                    dataType: 'text',
+                    success: function (result) {
+                        console.log(result);
+                    }
+                })
+            }
+            
+            function put() {
+                
+                const urlp = "http://localhost:8080/PUT";
+                
+                let editID = document.getElementById("id").value;
+                let name = document.getElementById("nama").value;
+                let editNIK = document.getElementById("nik").value;
+                let address = document.getElementById("alamat").value;
+                let photo = document.getElementById("foto").value;
+                let dataText = {"id":editID,"name":name,"nik":editNIK,"alamat":address,"photo":foto}
+                let dataJson = JSON.stringify(dataText);
+                
+                $.ajax({
+                    url: urlp,
+                    method: 'PUT',
+                    data: dataJson,
+                    contentType: 'application/json',
+                    dataType: 'text',
+                    success: function (result) {
+                        console.log(result);
+                    }
+                })
+            }
+            
+            function get(){
+                const urlg = "http://localhost:8080/GET";
+                $.ajax({
+                    url: urlg,
+                    method: 'GET',
+                    dataType: 'text',
+                    success: function (result) {
+                        document.getElementById("viewer").innerHTML = result;
+                    }
+                })
+            }
+            
+            function del() {
+                
+                const urlg = "http://localhost:8080/DELETE";
+                let editID = document.getElementById("id").value;
+                let name = document.getElementById("nama").value;
+                let editNIK = document.getElementById("nik").value;
+                let address = document.getElementById("alamat").value;
+                let photo = document.getElementById("foto").value;
+                let dataText = {"id":editID,"name":name,"nik":editNIK,"alamat":address,"photo":foto}
+		let dataJson = JSON.stringify(dataText);
+                $.ajax({
+                        url: urlg,
+                        method: 'DELETE',
+                        data: dataJson,
+                        contentType: 'application/json',
+                        dataType: 'text',
+                        success: function(result){
+                                document.getElementById("viewer").innerHTML = result;
+                        }
+                });
+            }
+            
+            
+        </script>
+        
+          <hr/>
+        <fieldset>
+            <form action="/getData" method="post" enctype="multipart/form-data">
+                Masukkan Nama: <input type="text" name="nama"><br><br>
+                Foto diri: <input type="file" name="image"  accept="image/png, image/jpg"/><br><br>
+                Masukkan NIK:<input type="text" name="nik"><br><br>
+                Masukkan NIM: <input type="text" name="Id"><br><br>
+                Masukkan Alamat: <input type="text" name="alamat"><br><br>
+                <input type="submit" value="Submit">
+            </form>
+        </fieldset>
+        
+        
+        <button onclick="get()">Get Data to Web Server</button> <br/>
+        <button onclick="post()">Send Data to Web Server</button> <br/>
+        <button onclick="put()">Edit Data to Web Server</button> <br/>
+        <button onclick="del()">Delete Data to Web Server</button>
+        
+    
+        <div id="viewer"></div>
+</html>
