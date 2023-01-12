@@ -20,7 +20,7 @@ import static webservice_c.uas_c.MahasiswaPK_.nik;
 
 /**
  *
- * @author ROG
+ * @author Zulfa Salsabila_20200140013
  */
 
 @RestController
